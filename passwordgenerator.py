@@ -1,6 +1,7 @@
 # password generator
 import turtle
 import random
+import pyperclip
 
 screen=turtle.Screen()
 screen.bgcolor("grey")
@@ -32,6 +33,9 @@ def pass_gen():
     menu.clear()
     menu.goto(-300,100)
     menu.write(password, font=("Arial", 30))
+    pyperclip.copy(password)
+    menu.goto(-200,30)
+    menu.write("password is copied to clipboard", font=("Arial", 20))
 
 
 menu=turtle.Turtle()
