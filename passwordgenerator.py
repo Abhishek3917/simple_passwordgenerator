@@ -13,9 +13,24 @@ def pass_gen():
     symbols=['@', '#', '$', '%', '=', ':', '?', '.', '/', '|', '~', '>','*', '(', ')', '<']
     digit=['1','2','3','4','5','6','7','8','9','0']
 
-    input_alpha=int(screen.numinput("Enter Value","Enter the number of alphabet needed"))
-    input_sym=int(screen.numinput("Enter Value","Enter the number of symbol needed"))
-    input_digits=int(screen.numinput("Enter Value","Enter the number of digit needed"))
+    input_str = screen.textinput("Enter Values", "Enter the number of alphabets, symbols, and digits needed separated by commas (e.g. 3,4,5): ")
+    input_list = input_str.split(',')
+
+    if len(input_list) >= 1 and input_list[0] != '':
+        input_alpha = int(input_list[0])
+    else:
+        input_alpha = 0
+
+    if len(input_list) >= 2 and input_list[1] != '':
+        input_sym = int(input_list[1])
+    else:
+        input_sym = 0
+
+    if len(input_list) >= 3 and input_list[2] != '':
+        input_digits = int(input_list[2])
+    else:
+        input_digits = 0
+
     password_list=[]
     for i in range(0,input_alpha):
         password_list.append(random.choice(alpabets))
@@ -33,16 +48,21 @@ def pass_gen():
     menu.clear()
     menu.goto(-300,100)
     menu.write(password, font=("Arial", 30))
-    pyperclip.copy(password)
-    menu.goto(-200,30)
-    menu.write("password is copied to clipboard", font=("Arial", 20))
+    copy = screen.numinput("do u need to copy","enter 1 or to regenerate press any key")
+    copy=int(copy)
+    if(copy==1):
+        pyperclip.copy(password)
+        menu.goto(-200,30)
+        menu.write("password is copied to clipboard", font=("Arial", 20))        
+    else:
+        pass_gen()
 
 
 menu=turtle.Turtle()
 menu.hideturtle()
 menu.penup()
 menu.goto(-300,100)
-menu.write("1. Add Account", font=("Arial", 16))
+menu.write("1. generate the password", font=("Arial", 16))
 menu.goto(-300,50)
 menu.write("2. Exit", font=("Arial", 16))
 screen.onkey(pass_gen, "1")
